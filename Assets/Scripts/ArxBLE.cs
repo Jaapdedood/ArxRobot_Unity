@@ -9,9 +9,9 @@ public class ArxBLE : MonoBehaviour
     public GameObject Panel;
     public Text msg;
 
-    public const string ServiceUUID = "0000e0ff-3c17-d293-8e48-14fe2e4da212";
-    public const string writeUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
-    public const string notifyUUID = "0000ffe2-0000-1000-8000-00805f9b34fb";
+    public string[] ServiceUUIDs = {"0000e0ff-3c17-d293-8e48-14fe2e4da212"};
+    public string writeUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
+    public string notifyUUID = "0000ffe2-0000-1000-8000-00805f9b34fb";
 
 	enum States
 	{
@@ -88,6 +88,11 @@ public class ArxBLE : MonoBehaviour
                 case States.None:
                     break;
                 case States.Scan:
+                /* ScanForPeripheralsWithServices (string[]serviceUUIDs, Action<string, string> action,
+                 * Action<string, string, int, byte[]> actionAdvertisingInfo =null,
+                 * bool rssiOnly = false, bool clearPeripheralList =true)
+                 */
+                BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(ServiceUUIDs, OnDeviceDiscovered);
                     break;
                 case  States.ScanRSSI:
                     break;
@@ -102,6 +107,10 @@ public class ArxBLE : MonoBehaviour
                 }
             }
         }
+    }
+
+    void OnDeviceDiscovered(string name, string id){
+        
     }
 
 }
