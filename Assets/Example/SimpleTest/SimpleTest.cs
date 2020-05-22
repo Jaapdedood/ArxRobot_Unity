@@ -87,7 +87,7 @@ public class SimpleTest : MonoBehaviour
 					break;
 
 				case States.Scan:
-					Bluetoothlehardwareinterface.Scanforperipheralswithservices (null, (address, name) => {
+					BluetoothLEHardwareInterface.ScanForPeripheralsWithServices (null, (address, name) => {
 
 						// if your device does not advertise the rssi and manufacturer specific data
 						// then you must use this callback because the next callback only gets called

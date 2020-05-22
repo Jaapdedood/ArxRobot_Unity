@@ -6,7 +6,6 @@ using System;
 
 public class ArxBLE : MonoBehaviour
 {
-    public GameObject Panel;
     public Text msg;
 
     public string[] ServiceUUIDs = {"0000e0ff-3c17-d293-8e48-14fe2e4da212"};
@@ -27,23 +26,12 @@ public class ArxBLE : MonoBehaviour
     private bool _connected = false;
 	private float _timeout = 0f;
 	private States _state = States.None;
-	private string _deviceAddress;
-	private bool _foundSubscribeID = false;
-	private bool _foundWriteID = false;
-	private byte[] _dataBytes = null;
-	private bool _rssiOnly = false;
-	private int _rssi = 0;
 
     void Reset ()
 	{
 	   	_connected = false;
 	   	_timeout = 0f;
         _state = States.None;
-	    _deviceAddress = null;
-	    _foundSubscribeID = false;
-    	_foundWriteID = false;
-	   	_dataBytes = null;
-	    _rssi = 0;
 	}
 
 	void SetState (States newState, float timeout)
@@ -56,7 +44,13 @@ public class ArxBLE : MonoBehaviour
     void Start()
     {
         Reset ();
-		//Initialize(as central, as peripheral, Action, error Action)
+    }
+
+    public void ScanButtonClick()
+    {
+        msg.text = "Starting Scan\n";   
+
+        //Initialize(as central, as peripheral, Action, error Action)
 		BluetoothLEHardwareInterface.Initialize (true, false, () => {
 			
 			SetState (States.Scan, 0.1f);
@@ -64,14 +58,7 @@ public class ArxBLE : MonoBehaviour
 		}, (error) => {
 			
 			BluetoothLEHardwareInterface.Log ("Error during initialize: " + error);
-		});
-    }
-
-    public void scanButton()
-    {
-        Panel.SetActive(true);
-
-        msg.text = "Starting Scan\n";   
+		});  
     }
 
     void Update()
@@ -88,13 +75,22 @@ public class ArxBLE : MonoBehaviour
                 case States.None:
                     break;
                 case States.Scan:
-                /* ScanForPeripheralsWithServices (string[]serviceUUIDs, Action<string, string> action,
-                 * Action<string, string, int, byte[]> actionAdvertisingInfo =null,
-                 * bool rssiOnly = false, bool clearPeripheralList =true)
-                 */
-                BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(ServiceUUIDs, OnDeviceDiscovered);
+                    msg.text += "Devices Found: \n";
+                    /* ScanForPeripheralsWithServices (string[]serviceUUIDs, Action<string, string> action,
+                     * Action<string, string, int, byte[]> actionAdvertisingInfo =null,
+                     * bool rssiOnly = false, bool clearPeripheralList =true)
+                     */
+                    FoundDeviceListScript.DeviceAddressList = new List<DeviceObject> ();
+
+                    BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(ServiceUUIDs, (address, name) => {
+                        FoundDeviceListScript.DeviceAddressList.Add (new DeviceObject (address, name));
+                        msg.text += name;
+                        msg.text += "\n";
+                    }
+                );
                     break;
                 case  States.ScanRSSI:
+                    //Not planning to support this any time soon
                     break;
                 case States.Connect:
                     break;
@@ -107,10 +103,6 @@ public class ArxBLE : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnDeviceDiscovered(string name, string id){
-        
     }
 
 }

@@ -1,0 +1,2 @@
+TODO:
+Make "Duplicable" a prefab or something and have it created and destroyed as devices are found.
