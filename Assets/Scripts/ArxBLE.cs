@@ -6,6 +6,8 @@ using System;
 
 public class ArxBLE : MonoBehaviour
 {
+    public GameObject[] deviceUIObjects;
+    public int deviceCount = 0;
     public Text msg;
 
     public string[] ServiceUUIDs = {"0000e0ff-3c17-d293-8e48-14fe2e4da212"};
@@ -86,6 +88,10 @@ public class ArxBLE : MonoBehaviour
                         FoundDeviceListScript.DeviceAddressList.Add (new DeviceObject (address, name));
                         msg.text += name;
                         msg.text += "\n";
+
+                        deviceUIObjects[deviceCount].SetActive(true);
+
+                        deviceCount++;
                     }
                 );
                     break;
