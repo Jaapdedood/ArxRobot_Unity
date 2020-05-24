@@ -1,7 +1,13 @@
-﻿public class DeviceObject
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DeviceObject : MonoBehaviour
 {
 	public string Address;
 	public string Name;
+	public Image Image;
 
 	public DeviceObject ()
 	{
@@ -13,5 +19,13 @@
 	{
 		Address = address;
 		Name = name;
+		//Image = some placeholder
+	}
+
+	public DeviceObject(string address, string name, Image image)
+	{
+		Address = address;
+		Name = name;
+		Image = image;
 	}
 }
