@@ -19,8 +19,15 @@ public class FoundDeviceListDisplay : MonoBehaviour
         
     }
 
-    public void Prime(List<DeviceObject> foundDevices)
+    public void Init(List<DeviceObject> foundDevices)
     {
+        // Destroy what's already here
+        for(int a = 0; a < targetTransform.childCount; a++)
+        {
+            Destroy(targetTransform.GetChild(a).gameObject);
+        }
+
+        // Spool out new list
         foreach(DeviceObject device in foundDevices){
             DeviceObjectDisplay display = (DeviceObjectDisplay)Instantiate(deviceDisplayPrefab);
             display.transform.SetParent(targetTransform, false);

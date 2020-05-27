@@ -6,11 +6,6 @@ using System;
 
 public class ArxBLE : MonoBehaviour
 {
-    //Displaying the device list like this is horrible programming but will suffice for demo purposes. See notes.txt
-    public GameObject[] deviceUIObjects;
-    public int deviceCount = 0;
-    public Text[] deviceNames;
-
     public Text msg;
     public Text receivedData;
 
@@ -124,9 +119,8 @@ public class ArxBLE : MonoBehaviour
                         FoundDeviceList.DeviceInfoList.Add (new DeviceObject (address, name));
                         msg.text += name + "    " + address;
                         msg.text += "\n";
-
-                    }
-                );
+                        }
+                    );
                     break;
                 case  States.ScanRSSI:
                     //Not planning to support this any time soon
