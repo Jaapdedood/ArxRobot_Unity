@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FoundDeviceListDisplay : MonoBehaviour
 {
@@ -28,10 +29,19 @@ public class FoundDeviceListDisplay : MonoBehaviour
         }
 
         // Spool out new list
-        foreach(DeviceObject device in foundDevices){
+        foreach(DeviceObject device in foundDevices)
+        {
             DeviceObjectDisplay display = (DeviceObjectDisplay)Instantiate(deviceDisplayPrefab);
             display.transform.SetParent(targetTransform, false);
             display.Init(device);
-        }
+
+            //If I set onclick in inspector, it gets lost when saving as prefab, hence this is defined at runtime
+            Button connectButton = display.GetComponentInChildren<Button>();
+            connectButton.onClick.AddListener(test);
+        }      
+    }
+
+    public void test(){
+        Debug.Log("boop");
     }
 }

@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 520895589876116066}
-  deviceDisplayPrefab: {fileID: 229259110, guid: 69859f9fd58c71e49a363450b260b5c9,
+  deviceDisplayPrefab: {fileID: 7455522962600021243, guid: 69859f9fd58c71e49a363450b260b5c9,
     type: 3}
 --- !u!1 &520895589876116067
 GameObject:
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 520895588574750699}
   m_HandleRect: {fileID: 520895588574750692}
   m_Direction: 3
-  m_Value: 1
+  m_Value: 0.99999934
   m_Size: 0.86409706
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -66,14 +66,14 @@ public class ArxBLE : MonoBehaviour
 		});  
     }
 
-    public void ConnectButtonClick(int deviceID)
+    public void ConnectButtonClick(Text address)
     {
         BluetoothLEHardwareInterface.StopScan ();
 
-        msg.text = "Connecting to: ";
+        msg.text = "Connecting to: " + address.text;
 
 
-        _addressToConnect = FoundDeviceList.DeviceInfoList[deviceID].Address;
+        _addressToConnect = address.text;
         SetState (States.Connect, 0.5f);
     }
 

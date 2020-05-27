@@ -733,6 +733,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1581238617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1581238620}
+  - component: {fileID: 1581238619}
+  - component: {fileID: 1581238618}
+  m_Layer: 0
+  m_Name: BLEDeviceScripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1581238618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581238617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b43aa13326d045e6a7808b5e3101e04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 1698826224}
+  debugDevicesToAdd:
+  - {fileID: 7488056877359121732, guid: 78cba5d212fe86149aac2c883a01fc32, type: 3}
+  - {fileID: 7488056877359121732, guid: 78cba5d212fe86149aac2c883a01fc32, type: 3}
+  - {fileID: 7488056877359121732, guid: 78cba5d212fe86149aac2c883a01fc32, type: 3}
+  deviceListPrefab: {fileID: 520895589134176730, guid: acefbedcd93ec4d51aa4b2ade73535e5,
+    type: 3}
+--- !u!114 &1581238619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581238617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb39d66c210d4ee797ec0407fc9b148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msg: {fileID: 1001314591}
+  receivedData: {fileID: 0}
+  ServiceUUIDs:
+  - 0000e0ff-3c17-d293-8e48-14fe2e4da212
+  writeUUID: 0000ffe1-0000-1000-8000-00805f9b34fb
+  notifyUUID: 0000ffe2-0000-1000-8000-00805f9b34fb
+--- !u!4 &1581238620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581238617}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 382.9878, y: 944.4149, z: -3093.0295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698826220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,8 +1073,6 @@ GameObject:
   - component: {fileID: 1803939135}
   - component: {fileID: 1803939134}
   - component: {fileID: 1803939133}
-  - component: {fileID: 1803939136}
-  - component: {fileID: 1803939137}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1076,7 +1143,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1803939136}
+      - m_Target: {fileID: 1581238619}
         m_MethodName: ScanButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1087,7 +1154,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1803939137}
+      - m_Target: {fileID: 1581238618}
         m_MethodName: runDisplayer
         m_Mode: 1
         m_Arguments:
@@ -1135,40 +1202,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803939131}
   m_CullTransparentMesh: 0
---- !u!114 &1803939136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803939131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eb39d66c210d4ee797ec0407fc9b148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  msg: {fileID: 1001314591}
-  receivedData: {fileID: 0}
-  ServiceUUIDs:
-  - 0000e0ff-3c17-d293-8e48-14fe2e4da212
-  writeUUID: 0000ffe1-0000-1000-8000-00805f9b34fb
-  notifyUUID: 0000ffe2-0000-1000-8000-00805f9b34fb
---- !u!114 &1803939137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803939131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b43aa13326d045e6a7808b5e3101e04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Canvas: {fileID: 1698826224}
-  debugDevicesToAdd:
-  - {fileID: 7488056877359121732, guid: 78cba5d212fe86149aac2c883a01fc32, type: 3}
-  - {fileID: 7488056877359121732, guid: 78cba5d212fe86149aac2c883a01fc32, type: 3}
-  - {fileID: 7488056877359121732, guid: 78cba5d212fe86149aac2c883a01fc32, type: 3}
-  deviceListPrefab: {fileID: 520895589134176730, guid: acefbedcd93ec4d51aa4b2ade73535e5,
-    type: 3}
