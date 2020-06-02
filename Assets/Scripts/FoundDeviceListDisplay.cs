@@ -8,6 +8,8 @@ public class FoundDeviceListDisplay : MonoBehaviour
     public Transform targetTransform;
     public DeviceObjectDisplay deviceDisplayPrefab;
 
+    public string connectAddress;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,14 +36,6 @@ public class FoundDeviceListDisplay : MonoBehaviour
             DeviceObjectDisplay display = (DeviceObjectDisplay)Instantiate(deviceDisplayPrefab);
             display.transform.SetParent(targetTransform, false);
             display.Init(device);
-
-            //If I set onclick in inspector, it gets lost when saving as prefab, hence this is defined at runtime
-            Button connectButton = display.GetComponentInChildren<Button>();
-            connectButton.onClick.AddListener(test);
         }      
-    }
-
-    public void test(){
-        Debug.Log("boop");
     }
 }

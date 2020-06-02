@@ -150,7 +150,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1001}
-  m_SizeDelta: {x: 1080, y: 1158.8577}
+  m_SizeDelta: {x: 1080, y: 1053.429}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &520895589134176724
 CanvasRenderer:
@@ -247,6 +247,7 @@ MonoBehaviour:
   targetTransform: {fileID: 520895589876116066}
   deviceDisplayPrefab: {fileID: 7455522962600021243, guid: 69859f9fd58c71e49a363450b260b5c9,
     type: 3}
+  connectAddress: 
 --- !u!1 &520895589876116067
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +260,7 @@ GameObject:
   - component: {fileID: 520895589876116071}
   - component: {fileID: 520895589876116064}
   - component: {fileID: 520895589876116065}
+  - component: {fileID: 444199179}
   m_Layer: 5
   m_Name: ContentGroup
   m_TagString: Untagged
@@ -280,11 +282,11 @@ RectTransform:
   m_Father: {fileID: 520895589134176727}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.013649, y: -91.13104}
-  m_SizeDelta: {x: 1080.0367, y: 1341.1198}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -0.01965332, y: 0}
+  m_SizeDelta: {x: 1080.0394, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &520895589876116071
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -341,12 +343,26 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &444199179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520895589876116067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &520895589939391071
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,8 +481,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 520895588574750699}
   m_HandleRect: {fileID: 520895588574750692}
   m_Direction: 3
-  m_Value: 0.99999934
-  m_Size: 0.86409706
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

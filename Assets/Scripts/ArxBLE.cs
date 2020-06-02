@@ -6,8 +6,9 @@ using System;
 
 public class ArxBLE : MonoBehaviour
 {
-    public Text msg;
-    public Text receivedData;
+    public static ArxBLE Instance;
+
+    public string msg;
 
     public string[] ServiceUUIDs = {"0000e0ff-3c17-d293-8e48-14fe2e4da212"};
     public string writeUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
@@ -44,6 +45,14 @@ public class ArxBLE : MonoBehaviour
 		_state = newState;
 		_timeout = timeout;
 	}
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
      // Start is called before the first frame update
     void Start()
@@ -53,7 +62,7 @@ public class ArxBLE : MonoBehaviour
 
     public void ScanButtonClick()
     {
-        msg.text = "Starting Scan\n";   
+        msg = "Starting Scan\n";   
 
         //Initialize(as central, as peripheral, Action, error Action)
 		BluetoothLEHardwareInterface.Initialize (true, false, () => {
@@ -63,17 +72,17 @@ public class ArxBLE : MonoBehaviour
 		}, (error) => {
 			
 			BluetoothLEHardwareInterface.Log ("Error during initialize: " + error);
-		});  
+		});
     }
 
-    public void ConnectButtonClick(Text address)
+    public void ConnectButtonClick(string address)
     {
         BluetoothLEHardwareInterface.StopScan ();
 
-        msg.text = "Connecting to: " + address.text;
+        msg = "Connecting to: " + address;
 
 
-        _addressToConnect = address.text;
+        _addressToConnect = address;
         SetState (States.Connect, 0.5f);
     }
 
@@ -105,20 +114,20 @@ public class ArxBLE : MonoBehaviour
                 {
                 case States.None:
                     if(_dataBytes != null){
-                    msg.text += "Data Received: " + BitConverter.ToString(_dataBytes) + "\n";
+                    msg += "Data Received: " + BitConverter.ToString(_dataBytes) + "\n";
                     _dataBytes = null;
                     }
                     break;
                 case States.Scan:
-                    msg.text += "Devices Found: \n";
+                    msg += "Devices Found: \n";
                     /* ScanForPeripheralsWithServices (string[]serviceUUIDs, Action<string, string> action,
                      * Action<string, string, int, byte[]> actionAdvertisingInfo =null,
                      * bool rssiOnly = false, bool clearPeripheralList =true)
                      */
                     BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(ServiceUUIDs, (address, name) => {
                         FoundDeviceList.DeviceInfoList.Add (new DeviceObject (address, name));
-                        msg.text += name + "    " + address;
-                        msg.text += "\n";
+                        msg += name + "    " + address;
+                        msg += "\n";
                         }
                     );
                     break;
@@ -132,7 +141,9 @@ public class ArxBLE : MonoBehaviour
 						if (IsEqual (serviceUUID, ServiceUUIDs[0]))
 						{
 							_foundNotifyUUID = _foundNotifyUUID || IsEqual (characteristicUUID, notifyUUID);
+                            msg = ("_foundNotifyUUID: " + _foundNotifyUUID + " ");
 							_foundWriteUUID = _foundWriteUUID || IsEqual (characteristicUUID, writeUUID);
+                            msg += ("_foundWriteUUID: " + _foundWriteUUID);
 
 							// if we have found both characteristics that we are waiting for
 							// set the state. make sure there is enough timeout that if the
@@ -141,22 +152,25 @@ public class ArxBLE : MonoBehaviour
 							if (_foundNotifyUUID && _foundWriteUUID)
 							{
 								_connected = true;
+                                msg = "Connected Succesfully";
 								SetState (States.Subscribe, 2f);
 							}
 						}
 					});
                     break;
                 case States.Subscribe:
+                    msg = "Subscribing..";
                 	BluetoothLEHardwareInterface.SubscribeCharacteristicWithDeviceAddress (_addressToConnect, ServiceUUIDs[0], notifyUUID, null, (address, characteristicUUID, bytes) => {
-
-					    // we don't have a great way to set the state other than waiting until we actually got
+                        
+                        // we don't have a great way to set the state other than waiting until we actually got
 					    // some data back. For this demo with the rfduino that means pressing the button
 					    // on the rfduino at least once before the GUI will update.
-					    _state = States.None;
+					    //_state = States.None;
+                        SetState (States.None, 0.1f);
 
 					    // we received some data from the device
 					    _dataBytes = bytes;
-					});
+                    });
                     break;
                 case States.Unsubscribe:
                     break;
@@ -166,5 +180,4 @@ public class ArxBLE : MonoBehaviour
             }
         }
     }
-
 }
