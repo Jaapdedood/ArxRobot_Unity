@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CommandID : MonoBehaviour
 {
-    public const byte COMMAND_PACKET_ID=    0xCA; 
+    public const byte COMMAND_PACKET_ID=    0xA5; 
     public const byte MOVE=					0x01; // 0000000   1     4      
 	public const byte CAMERA_MOVE=			0x02; // 0000001   0     4 (unsigned short) pan degrees (unsigned short) tilt degrees
 	public const byte CAMERA_HOME=			0x04; // 0000010   0     0
