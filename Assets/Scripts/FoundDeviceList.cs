@@ -70,6 +70,6 @@ public class FoundDeviceList : MonoBehaviour
 
 	void Update()
 	{
-		msg.text = ArxBLE.Instance.msg;
+		;msg.text = ArxBLE.Instance.msg;
 	}
 }

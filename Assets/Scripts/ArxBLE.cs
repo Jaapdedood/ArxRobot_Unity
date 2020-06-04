@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class ArxBLE : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class ArxBLE : MonoBehaviour
 		Subscribe,
 		Unsubscribe,
 		Disconnect,
+        CommSetup,
 	}
 
     private bool _connected = false;
@@ -86,6 +88,55 @@ public class ArxBLE : MonoBehaviour
         SetState (States.Connect, 0.5f);
     }
 
+   public void SendByteArray(byte[] data)
+	{
+		// 6th Parameter is false since EH-MC17 doesn't support write with notify afaik
+		BluetoothLEHardwareInterface.WriteCharacteristic (_addressToConnect, ServiceUUIDs[0], writeUUID, data, data.Length, false, (characteristicUUID) => {
+            msg = "Byte sent: ";
+            foreach(byte b in data){
+                msg += b.ToString("X2") + " ";
+            }
+		});
+	}
+
+    public void SendCommand(byte command, byte[] data)
+    {
+        List<byte> list = new List<byte>();
+        list.Add(command);
+
+        if(data != null)
+        {
+            foreach(byte value in data)
+            {
+                list.Add(value);
+            }
+        }
+
+        byte[] commandPacket = _commandPacketFromDataList(list);
+        SendByteArray(commandPacket);
+    }
+
+    public void SendCommand(List<Byte> commandWithData)
+    {
+        byte[] commandPacket = _commandPacketFromDataList(commandWithData);
+        SendByteArray(commandPacket);
+    }
+
+    private byte[] _commandPacketFromDataList(List<Byte> data)
+    {   
+        byte checkSum = 0;
+        List<byte> commandPacket = new List<byte>();
+        commandPacket.Add(CommandID.COMMAND_PACKET_ID);
+        commandPacket.Add((byte)data.Count);
+        commandPacket.AddRange(data);
+        foreach(byte value in commandPacket){
+            checkSum ^= value;
+        }
+        commandPacket.Add(checkSum);
+
+        return commandPacket.ToArray();
+    }
+    
     bool IsEqual(string uuid1, string uuid2)
 	{
 		if (uuid1.Length == 4)
@@ -96,7 +147,7 @@ public class ArxBLE : MonoBehaviour
 		return (uuid1.ToUpper().CompareTo(uuid2.ToUpper()) == 0);
 	}
 
-    string FullUUID (string uuid)
+    string FullUUID(string uuid)
 	{
 		return "0000" + uuid + "0000-1000-8000-00805f9b34fb";
 	}
@@ -153,7 +204,7 @@ public class ArxBLE : MonoBehaviour
 							{
 								_connected = true;
                                 msg = "Connected Succesfully";
-								SetState (States.Subscribe, 2f);
+                                SetState (States.CommSetup, 2f);
 							}
 						}
 					});
@@ -171,10 +222,18 @@ public class ArxBLE : MonoBehaviour
 					    // we received some data from the device
 					    _dataBytes = bytes;
                     });
+                    msg = "Subscribed";
+                    SetState (States.None, 0.1f);
                     break;
                 case States.Unsubscribe:
                     break;
                 case States.Disconnect:
+                    break;
+                case States.CommSetup:
+                    msg = "Telling 3DoT to set up Comms...";
+                    byte[] tempData = {0x00};
+                    SendCommand(CommandID.COMM_SETUP, tempData);
+                    SetState (States.Subscribe, 2f);
                     break;
                 }
             }
