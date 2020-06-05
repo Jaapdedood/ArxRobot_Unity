@@ -15,11 +15,13 @@ public class ControlsDisplay : MonoBehaviour
 
     void Start()
     {
-        forwardButton.alphaHitTestMinimumThreshold = AlphaThreshold;
-        rightButton.alphaHitTestMinimumThreshold = AlphaThreshold;
-        reverseButton.alphaHitTestMinimumThreshold = AlphaThreshold;
-        leftButton.alphaHitTestMinimumThreshold = AlphaThreshold;
-        middleButton.alphaHitTestMinimumThreshold = AlphaThreshold;
+        if(forwardButton != null){
+            forwardButton.alphaHitTestMinimumThreshold = AlphaThreshold;
+            rightButton.alphaHitTestMinimumThreshold = AlphaThreshold;
+            reverseButton.alphaHitTestMinimumThreshold = AlphaThreshold;
+            leftButton.alphaHitTestMinimumThreshold = AlphaThreshold;
+            middleButton.alphaHitTestMinimumThreshold = AlphaThreshold;
+        }
     }
 
     // Update is called once per frame

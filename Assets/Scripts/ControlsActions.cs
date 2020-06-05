@@ -25,6 +25,39 @@ public class ControlsActions : MonoBehaviour
     {
         leftMotor.Speed = (int)sliderValue;
         rightMotor.Speed = (int)sliderValue;
+        DeePad(_lastAction);
+    }
+
+    public void LeftTank(float sliderValue)
+    {
+        if(sliderValue >= 0)
+        {
+            leftMotor.CurrentDir = Dir.forward;
+            leftMotor.Speed = (int)sliderValue;
+        }
+        else
+        {
+            leftMotor.CurrentDir = Dir.reverse;
+            sliderValue *= -1;
+            leftMotor.Speed = (int)sliderValue;
+        }
+        ArxBLE.Instance.SendCommand(MotorsToList(leftMotor, rightMotor));
+    }
+
+    public void RightTank(float sliderValue)
+    {
+            if(sliderValue >= 0)
+        {
+            rightMotor.CurrentDir = Dir.forward;
+            rightMotor.Speed = (int)sliderValue;
+        }
+        else
+        {
+            rightMotor.CurrentDir = Dir.reverse;
+            sliderValue *= -1;
+            rightMotor.Speed = (int)sliderValue;
+        }
+        ArxBLE.Instance.SendCommand(MotorsToList(leftMotor, rightMotor));            
     }
 
     //Unity, please, let me use enum
@@ -35,22 +68,27 @@ public class ControlsActions : MonoBehaviour
         case "forward":
             leftMotor.CurrentDir = Dir.forward;
             rightMotor.CurrentDir = Dir.forward;
+            _lastAction = "forward";
             break;
         case "right":
             leftMotor.CurrentDir = Dir.forward;
             rightMotor.CurrentDir = Dir.reverse;
+            _lastAction = "right";
             break;
         case "left":
             leftMotor.CurrentDir = Dir.reverse;
             rightMotor.CurrentDir = Dir.forward;
+            _lastAction = "left";
             break;
         case "reverse":     
             leftMotor.CurrentDir = Dir.reverse;
             rightMotor.CurrentDir = Dir.reverse;
+            _lastAction = "reverse";
             break;
         case "brake":
             leftMotor.CurrentDir = Dir.brake;
             rightMotor.CurrentDir = Dir.brake;
+            _lastAction = "brake";
             break;
         }
         ArxBLE.Instance.SendCommand(MotorsToList(leftMotor, rightMotor));
