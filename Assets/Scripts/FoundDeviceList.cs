@@ -18,7 +18,7 @@ public class FoundDeviceList : MonoBehaviour
 	void Start ()
 	{
 		//Drag and drop UnknownDevice prefabs into debugDevicesToAdd in the Unity Editor and uncomment below to test without BLE
-		debugAddDevice(debugDevicesToAdd);
+		//debugAddDevice(debugDevicesToAdd);
 
 		GameObject ScanButton = GameObject.FindGameObjectWithTag("ScanButton");
 		ScanButton.GetComponentInChildren<Button>().onClick.AddListener(scanButtonClick);

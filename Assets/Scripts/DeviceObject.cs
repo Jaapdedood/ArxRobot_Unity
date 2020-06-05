@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeviceObject : MonoBehaviour
+public class DeviceObject
 {
 	public string Address;
 	public string Name;

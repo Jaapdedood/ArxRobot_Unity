@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Motor : MonoBehaviour
+public class Motor
 {
     public int Speed;
     public Dir CurrentDir;

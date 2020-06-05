@@ -165,7 +165,7 @@ public class ArxBLE : MonoBehaviour
                 {
                 case States.None:
                     if(_dataBytes != null){
-                    msg += "Data Received: " + BitConverter.ToString(_dataBytes) + "\n";
+                    msg += "\nData Received: " + BitConverter.ToString(_dataBytes);
                     _dataBytes = null;
                     }
                     break;

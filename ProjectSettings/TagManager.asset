@@ -8,6 +8,7 @@ TagManager:
   - Device
   - ScanButton
   - DebugText
+  - AlphaControl
   layers:
   - Default
   - TransparentFX
