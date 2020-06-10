@@ -12,6 +12,9 @@ public class ControlsDisplay : MonoBehaviour
     public Image reverseButton;
     public Image leftButton;
     public Image middleButton;
+    public Slider leftTank;
+    public Slider rightTank;
+    public GameObject reverseMotorsPopup;
 
     void Start()
     {
@@ -22,6 +25,26 @@ public class ControlsDisplay : MonoBehaviour
             leftButton.alphaHitTestMinimumThreshold = AlphaThreshold;
             middleButton.alphaHitTestMinimumThreshold = AlphaThreshold;
         }
+    }
+
+    public void ReturnHome(string whichSlider)
+    {
+        if(whichSlider == "left")
+        {
+            leftTank.value = 0.5f;
+        }
+        else if(whichSlider == "right")
+        {
+            rightTank.value = 0.5f;
+        }
+        else
+        {
+            Debug.Log("invalid slider param");
+        }
+    }
+
+    public void ToggleReverseMotorsPopup(){
+        reverseMotorsPopup.SetActive(!reverseMotorsPopup.activeSelf);
     }
 
     // Update is called once per frame

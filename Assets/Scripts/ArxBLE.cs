@@ -27,7 +27,7 @@ public class ArxBLE : MonoBehaviour
         CommSetup,
 	}
 
-    private bool _connected = false;
+    public bool connected = false;
 	private float _timeout = 0f;
 	private States _state = States.None;
     private string _addressToConnect;
@@ -37,7 +37,7 @@ public class ArxBLE : MonoBehaviour
 
     void Reset ()
 	{
-	   	_connected = false;
+	   	connected = false;
 	   	_timeout = 0f;
         _state = States.None;
 	}
@@ -60,12 +60,11 @@ public class ArxBLE : MonoBehaviour
     void Start()
     {
         Reset ();
+        msg = "App Started";
     }
 
     public void ScanButtonClick()
     {
-        msg = "Starting Scan\n";   
-
         //Initialize(as central, as peripheral, Action, error Action)
 		BluetoothLEHardwareInterface.Initialize (true, false, () => {
 			
@@ -165,20 +164,17 @@ public class ArxBLE : MonoBehaviour
                 {
                 case States.None:
                     if(_dataBytes != null){
-                    msg += "\nData Received: " + BitConverter.ToString(_dataBytes);
+                    msg = "\nData Received: " + BitConverter.ToString(_dataBytes);
                     _dataBytes = null;
                     }
                     break;
                 case States.Scan:
-                    msg += "Devices Found: \n";
                     /* ScanForPeripheralsWithServices (string[]serviceUUIDs, Action<string, string> action,
                      * Action<string, string, int, byte[]> actionAdvertisingInfo =null,
                      * bool rssiOnly = false, bool clearPeripheralList =true)
                      */
                     BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(ServiceUUIDs, (address, name) => {
                         FoundDeviceList.DeviceInfoList.Add (new DeviceObject (address, name));
-                        msg += name + "    " + address;
-                        msg += "\n";
                         }
                     );
                     break;
@@ -202,7 +198,7 @@ public class ArxBLE : MonoBehaviour
 							// before we try to subscribe
 							if (_foundNotifyUUID && _foundWriteUUID)
 							{
-								_connected = true;
+								connected = true;
                                 msg = "Connected Succesfully";
                                 SetState (States.CommSetup, 2f);
 							}
@@ -222,7 +218,7 @@ public class ArxBLE : MonoBehaviour
 					    // we received some data from the device
 					    _dataBytes = bytes;
                     });
-                    msg = "Subscribed";
+                    msg = "Subscribed. Robot Ready";
                     SetState (States.None, 0.1f);
                     break;
                 case States.Unsubscribe:

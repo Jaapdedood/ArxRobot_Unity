@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TankControls.unity
     guid: c47189e395f885e4f8c89cbc48a70d51
+  - enabled: 1
+    path: Assets/ComingSoon.unity
+    guid: 0834b575568a2c94cb08afa0b8879499
   m_configObjects: {}

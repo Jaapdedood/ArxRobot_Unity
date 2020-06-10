@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class FoundDeviceList : MonoBehaviour
 {
@@ -11,8 +12,7 @@ public class FoundDeviceList : MonoBehaviour
 	static public List<DeviceObject> DeviceInfoList = new List<DeviceObject>();
 	public FoundDeviceListDisplay deviceListPrefab;
 	private FoundDeviceListDisplay displayer;
-	
-	public Text msg;
+	private bool _connectButtonClicked = false;
 
 	// Use this for initialization
 	void Start ()
@@ -66,10 +66,15 @@ public class FoundDeviceList : MonoBehaviour
 	public void connectButtonClick(string address)
 	{
 		ArxBLE.Instance.ConnectButtonClick(address);
+		_connectButtonClicked = true;
 	}
 
 	void Update()
 	{
-		;msg.text = ArxBLE.Instance.msg;
+		if(ArxBLE.Instance.connected && _connectButtonClicked)
+		{
+			_connectButtonClicked = false;
+			SceneManager.LoadScene("ControlSelection");
+		}
 	}
 }
