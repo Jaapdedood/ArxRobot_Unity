@@ -854,7 +854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &253975019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,7 +1401,22 @@ PrefabInstance:
         type: 3}
       propertyPath: ActionScript
       value: 
-      objectReference: {fileID: 1901392553}
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: setting
+      value: reverseLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: controlsSettings
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: isOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224024841653902356, guid: bc6fc51562264024088e7174202eab20,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3692,49 +3707,6 @@ MonoBehaviour:
   angleOffset: 0
   active: 0
   assignedIndex: 0
---- !u!1 &1901392553
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1901392555}
-  - component: {fileID: 1901392554}
-  m_Layer: 0
-  m_Name: ControlsSettings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1901392554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901392553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f65db5bdabd4a7644980c838f556f85b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1901392555
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901392553}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.67283, y: 598.899, z: -3657.6091}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1918003984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3750,6 +3722,26 @@ PrefabInstance:
         type: 3}
       propertyPath: handleOffset
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: ActionScript
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: setting
+      value: reverseRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: controlsSettings
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813106202897008, guid: bc6fc51562264024088e7174202eab20,
+        type: 3}
+      propertyPath: isOn
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224024841653902356, guid: bc6fc51562264024088e7174202eab20,
         type: 3}

@@ -8,6 +8,7 @@ public class ControlsActions : MonoBehaviour
     private Motor rightMotor = new Motor();
     private string _lastAction;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,18 @@ public class ControlsActions : MonoBehaviour
             sliderValue *= -1;
             leftMotor.Speed = (int)sliderValue;
         }
+
+        if(ControlsSettings.Instance.reverseLeft)
+        {
+            if(leftMotor.CurrentDir == Dir.forward)
+            {
+                leftMotor.CurrentDir = Dir.reverse;
+            }
+            else if(leftMotor.CurrentDir == Dir.reverse)
+            {
+                leftMotor.CurrentDir = Dir.forward;
+            }
+        }
         ArxBLE.Instance.SendCommand(MotorsToList(leftMotor, rightMotor));
     }
 
@@ -57,10 +70,21 @@ public class ControlsActions : MonoBehaviour
             sliderValue *= -1;
             rightMotor.Speed = (int)sliderValue;
         }
+
+        if(ControlsSettings.Instance.reverseRight)
+        {
+            if(rightMotor.CurrentDir == Dir.forward)
+            {
+                rightMotor.CurrentDir = Dir.reverse;
+            }
+            else if(rightMotor.CurrentDir == Dir.reverse)
+            {
+                rightMotor.CurrentDir = Dir.forward;
+            }
+        }
         ArxBLE.Instance.SendCommand(MotorsToList(leftMotor, rightMotor));            
     }
 
-    //Unity, please, let me use enum
     public void DeePad(string direction)
     {
         switch(direction){
@@ -90,6 +114,30 @@ public class ControlsActions : MonoBehaviour
             rightMotor.CurrentDir = Dir.brake;
             _lastAction = "brake";
             break;
+        }
+        if(ControlsSettings.Instance.reverseLeft)
+        {
+            Debug.Log("Left Reversed");
+            if(leftMotor.CurrentDir == Dir.forward)
+            {
+                leftMotor.CurrentDir = Dir.reverse;
+            }
+            else if(leftMotor.CurrentDir == Dir.reverse)
+            {
+                leftMotor.CurrentDir = Dir.forward;
+            }
+        }
+        if(ControlsSettings.Instance.reverseRight)
+        {
+            Debug.Log("Right Reversed");
+            if(rightMotor.CurrentDir == Dir.forward)
+            {
+                rightMotor.CurrentDir = Dir.reverse;
+            }
+            else if(rightMotor.CurrentDir == Dir.reverse)
+            {
+                rightMotor.CurrentDir = Dir.forward;
+            }
         }
         ArxBLE.Instance.SendCommand(MotorsToList(leftMotor, rightMotor));
     }

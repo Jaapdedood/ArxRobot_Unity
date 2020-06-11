@@ -23,7 +23,10 @@ public class FoundDeviceList : MonoBehaviour
 		GameObject ScanButton = GameObject.FindGameObjectWithTag("ScanButton");
 		ScanButton.GetComponentInChildren<Button>().onClick.AddListener(scanButtonClick);
 		
+		if(!ArxBLE.Instance.connected)
+		{
 		ArxBLE.Instance.ScanButtonClick();
+		}
 	}
 
 	void debugAddDevice(List<DeviceObject> devices)

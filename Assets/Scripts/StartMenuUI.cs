@@ -19,6 +19,7 @@ public class StartMenuUI : MonoBehaviour
         msg.text = ArxBLE.Instance.msg;
     }
 
+
     public void TogglePrepareBotCanvas(){
         PrepareBotCanvas.SetActive(!PrepareBotCanvas.activeSelf);
     }

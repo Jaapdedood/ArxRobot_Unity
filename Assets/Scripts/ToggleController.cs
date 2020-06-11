@@ -25,8 +25,6 @@ public class ToggleController : MonoBehaviour
 	public GameObject onIcon;
 	public GameObject offIcon;
 
-	//this is UGLY
-	public GameObject ActionScript;
 	public string setting;
 
 	public float speed;
@@ -34,6 +32,7 @@ public class ToggleController : MonoBehaviour
 
 	private bool _switching = false;
 
+	/* I hate this entire script and everything to do with these toggle buttons */
 
 	void Awake()
 	{
@@ -49,6 +48,9 @@ public class ToggleController : MonoBehaviour
 
 	void Start()
 	{
+		// reflection!
+		isOn = (bool)ControlsSettings.Instance.GetType().GetField(setting).GetValue(ControlsSettings.Instance);
+
 		if(isOn)
 		{
 			toggleBgImage.color = onColorBg;
@@ -68,7 +70,7 @@ public class ToggleController : MonoBehaviour
 	void Update()
 	{
 
-		// Got this code from somewhere else, kind of worried about performance issues here
+		// Kind of worried about performance issues here
 		// unfortunately, the smooth transition depends on being called in update
 		// Could put it in a while loop with a delay or something but spent enough time on it for now.
 		if(_switching)
@@ -79,7 +81,7 @@ public class ToggleController : MonoBehaviour
 
 	public void ToggleAction()
 	{
-		//ActionScript.ToggleAction(setting, isOn);
+		ControlsSettings.Instance.ToggleAction(setting, isOn);
 	}
 
 	public void Switching()
