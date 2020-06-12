@@ -14,7 +14,6 @@ public class ControlsDisplay : MonoBehaviour
     public Image middleButton;
     public Slider leftTank;
     public Slider rightTank;
-    public GameObject reverseMotorsPopup;
 
     void Start()
     {
@@ -43,8 +42,8 @@ public class ControlsDisplay : MonoBehaviour
         }
     }
 
-    public void ToggleReverseMotorsPopup(){
-        reverseMotorsPopup.SetActive(!reverseMotorsPopup.activeSelf);
+    public void ToggleDisplay(GameObject displayObject){
+        displayObject.SetActive(!displayObject.activeSelf);
     }
 
     // Update is called once per frame

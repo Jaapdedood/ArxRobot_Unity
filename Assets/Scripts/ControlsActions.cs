@@ -117,7 +117,6 @@ public class ControlsActions : MonoBehaviour
         }
         if(ControlsSettings.Instance.reverseLeft)
         {
-            Debug.Log("Left Reversed");
             if(leftMotor.CurrentDir == Dir.forward)
             {
                 leftMotor.CurrentDir = Dir.reverse;
@@ -129,7 +128,6 @@ public class ControlsActions : MonoBehaviour
         }
         if(ControlsSettings.Instance.reverseRight)
         {
-            Debug.Log("Right Reversed");
             if(rightMotor.CurrentDir == Dir.forward)
             {
                 rightMotor.CurrentDir = Dir.reverse;
