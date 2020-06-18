@@ -9,6 +9,12 @@ TagManager:
   - ScanButton
   - DebugText
   - AlphaControl
+  - Toggle Bg
+  - OnText
+  - Handle
+  - Off Text
+  - MainCanvas
+  - TrashCan
   layers:
   - Default
   - TransparentFX

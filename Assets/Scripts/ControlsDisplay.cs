@@ -24,6 +24,8 @@ public class ControlsDisplay : MonoBehaviour
             leftButton.alphaHitTestMinimumThreshold = AlphaThreshold;
             middleButton.alphaHitTestMinimumThreshold = AlphaThreshold;
         }
+        GameObject TrashCan = GameObject.FindGameObjectWithTag("TrashCan");
+        TrashCan.transform.localScale = new Vector3(0, 0, 0); //Cool trick to hide without disabling
     }
 
     public void ReturnHome(string whichSlider)
