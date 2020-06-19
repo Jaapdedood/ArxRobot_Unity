@@ -9,18 +9,16 @@ public class DataSaver : MonoBehaviour
     public static CustomCommandContainer customCommandContainer = new CustomCommandContainer();
 
     public delegate void SerializeAction();
-    public static event SerializeAction OnLoaded;
-    public static event SerializeAction OnBeforeSave;
+    //public static event SerializeAction OnLoaded;
+    //public static event SerializeAction OnBeforeSave;
 
     public static void Load(string path)
     {
         customCommandContainer = LoadCustomCommands(path);
 
-        int n = 0;
         foreach(CustomCommandData data in customCommandContainer.customCommands)
         {
-            CustomCommandDisplay.CreateCustomCommand(data, CustomCommandDisplay.ButtonPrefab, new Vector3(data.posX, data.posY, data.posZ), Quaternion.identity, data.commandID);
-            n++;
+            CustomCommandDisplay.CreateCustomCommand(data, new Vector3(data.posX, data.posY, data.posZ), Quaternion.identity);
         }
 
         //OnLoaded event listener workaround
@@ -91,7 +89,7 @@ public class DataSaver : MonoBehaviour
     {
         XmlSerializer serializer = new XmlSerializer(typeof(CustomCommandContainer));
 
-        FileStream stream = new FileStream(path, FileMode.Truncate);
+        FileStream stream = new FileStream(path, FileMode.Create);
 
         serializer.Serialize(stream, customCommands);
 

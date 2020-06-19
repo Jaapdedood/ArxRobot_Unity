@@ -14,13 +14,19 @@ public class CustomCommandDisplay : MonoBehaviour
 
     public Button SaveButton;
     public Button LoadButton;
-    public const string ButtonPrefab = "Prefabs/CustomButtonPrefab";
+
+    public static Dictionary<string, string> prefabPaths = new Dictionary<string, string>();
 
     private static string DataPath = string.Empty;
 
     void Awake()
     {
         DataPath = System.IO.Path.Combine(Application.persistentDataPath, "customCommands.xml");
+
+        prefabPaths.Add("button", "Prefabs/CustomButtonPrefab");
+        prefabPaths.Add("toggle", "Prefabs/CustomTogglePrefab");
+        prefabPaths.Add("slider", "Prefabs/CustomSliderPrefab");
+        prefabPaths.Add("text", "Prefabs/CustomTextPrefab");
     }
 
     // Start is called before the first frame update
@@ -39,28 +45,26 @@ public class CustomCommandDisplay : MonoBehaviour
     {
         //toggle off current panel
         //currentPanel.SetActive(!currentPanel.activeSelf);
+        CustomCommand commandSpawned;
+        
+        commandSpawned = CreateCustomCommand(new Vector3(0.5f, 0.5f, 0), Quaternion.identity, type, _tempLabel, _tempID);
 
         switch(type)
         {
             case "button":
-            /*
-            	_customButton = (Button)Instantiate(CustomButtonPrefab);
-                _customButton.transform.SetParent(Canvas, false);
-
-                CustomCommand customCommandScript = _customButton.GetComponent<CustomCommand>();
-
-                _customButton.GetComponentInChildren<Button>().onClick.AddListener(customCommandScript.ButtonClick);
-                Debug.Log("Setting commandscript tempID:");
-                Debug.Log(_tempID);
-                customCommandScript.commandID = _tempID;
-                _customButton.GetComponentInChildren<Text>().text = _tempLabel;
-                */
+            commandSpawned.GetComponentInChildren<Button>().onClick.AddListener(commandSpawned.ButtonClick);
             break;
+
             case "toggle":
+           
             break;
+
             case "slider":
+            
             break;
+
             case "text":
+            
             break;
         }
     }
@@ -75,32 +79,36 @@ public class CustomCommandDisplay : MonoBehaviour
         _tempLabel = label;
     }
 
-    public static CustomCommand CreateCustomCommand(string path, Vector3 position, Quaternion rotation, int commandID)
+    public static CustomCommand CreateCustomCommand(Vector3 position, Quaternion rotation, string type, string label, int commandID)
     {
-        GameObject prefab = Resources.Load<GameObject>(path);
+        GameObject prefab = Resources.Load<GameObject>(prefabPaths[type]);
 
         GameObject mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas");
-        GameObject go = GameObject.Instantiate(prefab, position, rotation, mainCanvas.transform) as GameObject;
-
+        GameObject go = GameObject.Instantiate(prefab, position, rotation) as GameObject;
+        
         CustomCommand customCommand = go.GetComponent<CustomCommand>() ?? go.AddComponent<CustomCommand>();
+        //Set Parent not done in instantiate in order to maintain relative position
+        go.transform.SetParent(mainCanvas.transform, false);
 
+        customCommand.type = type;
         customCommand.commandID = commandID;
+        customCommand.label = label;
 
         return customCommand;
     }
 
-    public static CustomCommand CreateCustomCommand(CustomCommandData data, string path, Vector3 position, Quaternion rotation, int commandID)
+    public static CustomCommand CreateCustomCommand(CustomCommandData data, Vector3 position, Quaternion rotation)
     {
-        GameObject prefab = Resources.Load<GameObject>(path);
+        GameObject prefab = Resources.Load<GameObject>(prefabPaths[data.type]);
 
         GameObject mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas"); 
-        GameObject go = GameObject.Instantiate(prefab, position, rotation, mainCanvas.transform) as GameObject;
+        GameObject go = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
         CustomCommand customCommand = go.GetComponent<CustomCommand>() ?? go.AddComponent<CustomCommand>();
+        //Set Parent not done in instantiate in order to maintain relative position
+        go.transform.SetParent(mainCanvas.transform, false);
 
         customCommand.data = data;
-
-        customCommand.commandID = commandID;
 
         return customCommand;
     }

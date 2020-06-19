@@ -28,7 +28,7 @@ public class DragUI : MonoBehaviour
     public void OnEndDrag()
     {
         float Distance = Vector3.Distance(transform.position, TrashCan.transform.position);
-        if(Distance < 60 )
+        if(Distance < 80 )
         {
             Destroy(gameObject);
         }

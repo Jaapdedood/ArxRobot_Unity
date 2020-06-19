@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Xml.Serialization;
 
@@ -8,8 +9,16 @@ public class CustomCommand : MonoBehaviour
 {
     public CustomCommandData data = new CustomCommandData();
 
-    public int commandID;
+    public string type;
     public string label;
+    public int commandID;
+
+    public Text labelText;
+
+    void Start()
+    {
+        labelText.text = label;
+    }
 
     public void ButtonClick()
     {
@@ -18,8 +27,10 @@ public class CustomCommand : MonoBehaviour
 
     public void StoreData()
     {
+        data.type = type;
         data.label = label;
         data.commandID = commandID;
+
         Vector3 pos = transform.position;
         data.posX = pos.x;
         data.posY = pos.y;
@@ -28,9 +39,12 @@ public class CustomCommand : MonoBehaviour
 
     public void LoadData()
     {
-            commandID = data.commandID;
-            label = data.label;
-            transform.position = new Vector3(data.posX, data.posY, data.posZ);
+        type = data.type;
+        label = data.label;
+        commandID = data.commandID;
+        
+        transform.position = new Vector3(data.posX, data.posY, data.posZ);
+        
     }
 
     void OnEnable()
@@ -57,6 +71,10 @@ public class CustomCommand : MonoBehaviour
 
 public class CustomCommandData
 {
+    
+    [XmlAttribute("Type")]
+    public string type;
+
     [XmlAttribute("Label")]
     public string label;
 
