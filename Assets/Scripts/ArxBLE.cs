@@ -98,9 +98,36 @@ public class ArxBLE : MonoBehaviour
 		});
 	}
 
+    public void SendCommand(byte command, byte data)
+    {
+        List<byte> list = new List<byte>();
+
+        //if below 0x40, map to 1-30 to 0x40-0x5D
+        if(command < 64)
+        {
+            command += 63;
+        }
+        list.Add(command);
+
+        list.Add(data);
+
+        foreach(byte element in list)
+        {
+            Debug.Log(element);
+        }
+        byte[] commandPacket = _commandPacketFromDataList(list);
+        SendByteArray(commandPacket);
+    }
+
     public void SendCommand(byte command, byte[] data)
     {
         List<byte> list = new List<byte>();
+
+        //if below 0x40, map to 1-30 to 0x40-0x5D
+        if(command < 64)
+        {
+            command += 63;
+        }
         list.Add(command);
 
         if(data != null)
@@ -110,7 +137,10 @@ public class ArxBLE : MonoBehaviour
                 list.Add(value);
             }
         }
-
+        foreach(byte element in list)
+        {
+            Debug.Log(element);
+        }
         byte[] commandPacket = _commandPacketFromDataList(list);
         SendByteArray(commandPacket);
     }

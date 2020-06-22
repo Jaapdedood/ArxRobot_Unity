@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Xml.Serialization;
+using System.Text;
 
 public class CustomCommand : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CustomCommand : MonoBehaviour
     public string type;
     public string label;
     public int commandID;
+    private string _textInput;
 
     public Text labelText;
 
@@ -22,7 +24,38 @@ public class CustomCommand : MonoBehaviour
 
     public void ButtonClick()
     {
-        Debug.Log(commandID);
+        Debug.Log("Button | ID: " + commandID);
+
+        ArxBLE.Instance.SendCommand((byte)commandID, null);
+    }
+
+    public void ToggleChanged(bool isOn)
+    {
+        Debug.Log("Toggle | ID: " + commandID + " | isOn: " + isOn);
+
+        //Convert bool to 1 or 0
+        byte data = isOn ? (byte) 1 : (byte) 0;
+        
+        ArxBLE.Instance.SendCommand((byte)commandID, data);
+    }
+
+    public void SliderChanged(float value)
+    {
+        Debug.Log("Slider | ID: " + commandID + " | value: " + value);
+        ArxBLE.Instance.SendCommand((byte)commandID, (byte)value);
+    }
+
+    public void TextChanged(string input)
+    {
+        Debug.Log("Text | ID: " + commandID + " | input: " + input);
+        _textInput = input;
+    }
+
+    public void TextClick()
+    {
+        Debug.Log("Text | ID: " + commandID + " | input: " + _textInput);
+        byte[] textAsBytes = Encoding.ASCII.GetBytes(_textInput);
+        ArxBLE.Instance.SendCommand((byte)commandID, textAsBytes);
     }
 
     public void StoreData()

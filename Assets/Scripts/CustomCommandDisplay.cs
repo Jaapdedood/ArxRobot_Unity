@@ -14,19 +14,21 @@ public class CustomCommandDisplay : MonoBehaviour
 
     public Button SaveButton;
     public Button LoadButton;
+    public string FilePrefix;
 
-    public static Dictionary<string, string> prefabPaths = new Dictionary<string, string>();
+    public static Dictionary<string, string> prefabPaths = new Dictionary<string, string>()
+    {
+        {"button", "Prefabs/CustomButtonPrefab"},
+        {"toggle", "Prefabs/CustomTogglePrefab"},
+        {"slider", "Prefabs/CustomSliderPrefab"},
+        {"text", "Prefabs/CustomTextPrefab"},
+    };
 
     private static string DataPath = string.Empty;
 
     void Awake()
     {
-        DataPath = System.IO.Path.Combine(Application.persistentDataPath, "customCommands.xml");
-
-        prefabPaths.Add("button", "Prefabs/CustomButtonPrefab");
-        prefabPaths.Add("toggle", "Prefabs/CustomTogglePrefab");
-        prefabPaths.Add("slider", "Prefabs/CustomSliderPrefab");
-        prefabPaths.Add("text", "Prefabs/CustomTextPrefab");
+        DataPath = System.IO.Path.Combine(Application.persistentDataPath, FilePrefix + "CustomCommands.xml");
     }
 
     // Start is called before the first frame update
@@ -56,15 +58,16 @@ public class CustomCommandDisplay : MonoBehaviour
             break;
 
             case "toggle":
-           
+            commandSpawned.GetComponentInChildren<Toggle>().onValueChanged.AddListener(commandSpawned.ToggleChanged);
             break;
 
             case "slider":
-            
+            commandSpawned.GetComponentInChildren<Slider>().onValueChanged.AddListener(commandSpawned.SliderChanged);
             break;
 
             case "text":
-            
+            commandSpawned.GetComponentInChildren<InputField>().onValueChanged.AddListener(commandSpawned.TextChanged);
+            commandSpawned.GetComponentInChildren<Button>().onClick.AddListener(commandSpawned.TextClick);
             break;
         }
     }
