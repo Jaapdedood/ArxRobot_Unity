@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Unity Test Build v0.1.0
+  m_text: 'Unity Build v0.1.0
 
 '
   m_isRightToLeft: 0
@@ -1130,10 +1130,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -7.960388, w: 19.90094}
   m_textInfo:
     textComponent: {fileID: 525845222}
-    characterCount: 24
+    characterCount: 19
     spriteCount: 0
-    spaceCount: 4
-    wordCount: 6
+    spaceCount: 3
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1
