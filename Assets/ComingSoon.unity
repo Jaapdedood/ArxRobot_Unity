@@ -683,6 +683,8 @@ MonoBehaviour:
   reverseButton: {fileID: 0}
   leftButton: {fileID: 0}
   middleButton: {fileID: 0}
+  leftTank: {fileID: 0}
+  rightTank: {fileID: 0}
 --- !u!4 &792597735
 Transform:
   m_ObjectHideFlags: 0
@@ -922,7 +924,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a8c1aff0909c45c28e428641227d630, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70387384f15831d4498fe777de8b1ecb, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
